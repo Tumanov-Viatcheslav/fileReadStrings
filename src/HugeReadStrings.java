@@ -98,6 +98,7 @@ public class HugeReadStrings {
 
     private static List<String> getUniqueNamesStream(List<String> stringList) {
         return new HashSet<>(stringList).stream().toList();
+        //return stringList.stream().distinct().toList();
     }
 
     private static int getNumberOfVPStream(List<String> stringList) {
