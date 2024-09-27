@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class HugeReadStrings {
@@ -36,12 +37,12 @@ public class HugeReadStrings {
     }
 
     private static List<String> getUniqueNames(List<String> stringList) {
-        List<String> uniqueNames = new ArrayList<>();
+        HashSet<String> uniqueNames = new HashSet<>();
         for (String line : stringList) {
-            if (!uniqueNames.contains(line))
+            if (!uniqueNames.add(line))
                 uniqueNames.add(line);
         }
-        return uniqueNames;
+        return uniqueNames.stream().toList();
     }
 
     private static int getNumberOfVP(List<String> stringList) {
