@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HugeReadStrings {
 
@@ -81,16 +82,55 @@ public class HugeReadStrings {
         return vStrings;
     }
 
+    private static void printToFileStream(List<String> stringList, String fileName) {
+        try (BufferedWriter output = new BufferedWriter(new FileWriter(fileName))) {
+            stringList.forEach(line -> {
+                try {
+                    output.write(line + "\n");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static List<String> getUniqueNamesStream(List<String> stringList) {
+        return new HashSet<>(stringList).stream().toList();
+    }
+
+    private static int getNumberOfVPStream(List<String> stringList) {
+        return Integer.parseInt(stringList.stream().
+                reduce("0", (counter, line) -> line.equals("Вася Пупкин") ? String.valueOf(Integer.parseInt(counter) + 1) : counter));
+    }
+
+    private static int getNumberOfFirstPStream(List<String> stringList) {
+        return Integer.parseInt(stringList.stream().
+                reduce("0", (counter, line) -> line.startsWith("Вася") ? String.valueOf(Integer.parseInt(counter) + 1) : counter));
+    }
+
+    private static List<String> getShortStringsStream(List<String> stringList) {
+        return stringList.stream().filter(line -> line.length() < 15).toList();
+    }
+
+    private static List<String> getSortedStringListStream(List<String> stringList) {
+        return stringList.stream().sorted().toList();
+    }
+    private static List<String> replaceVStream(List<String> stringList) {
+        return stringList.stream().map(line -> line.replace('В', 'V')).toList();
+    }
+
     public static void main(String[] args) {
         List<String> stringList = readFromFile(), test1, test4, test5, test6;
         String fileName = "output", fileType = ".txt";
         int test2, test3;
-        test1 = getUniqueNames(stringList);
-        test2 = getNumberOfVP(stringList);
-        test3 = getNumberOfFirstP(stringList);
-        test4 = getShortStrings(stringList);
-        test5 = getSortedStringList(test4);
-        test6 = replaceV(stringList);
+        test1 = getUniqueNamesStream(stringList);
+        test2 = getNumberOfVPStream(stringList);
+        test3 = getNumberOfFirstPStream(stringList);
+        test4 = getShortStringsStream(stringList);
+        test5 = getSortedStringListStream(test4);
+        test6 = replaceVStream(stringList);
 
         printToFile(test1, fileName + "1" + fileType);
         printToFile(String.valueOf(test2), fileName + "2" + fileType);
