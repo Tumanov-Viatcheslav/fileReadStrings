@@ -132,11 +132,11 @@ public class HugeReadStrings {
         test5 = getSortedStringListStream(test4);
         test6 = replaceVStream(stringList);
 
-        printToFile(test1, fileName + "1" + fileType);
+        printToFileStream(test1, fileName + "1" + fileType);
         printToFile(String.valueOf(test2), fileName + "2" + fileType);
         printToFile(String.valueOf(test3), fileName + "3" + fileType);
-        printToFile(test4, fileName + "4" + fileType);
-        printToFile(test5, fileName + "5" + fileType);
-        printToFile(test6, fileName + "6" + fileType);
+        printToFileStream(test4, fileName + "4" + fileType);
+        printToFileStream(test5, fileName + "5" + fileType);
+        printToFileStream(test6, fileName + "6" + fileType);
     }
 }
