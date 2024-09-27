@@ -37,11 +37,7 @@ public class HugeReadStrings {
     }
 
     private static List<String> getUniqueNames(List<String> stringList) {
-        HashSet<String> uniqueNames = new HashSet<>();
-        for (String line : stringList) {
-            if (!uniqueNames.add(line))
-                uniqueNames.add(line);
-        }
+        HashSet<String> uniqueNames = new HashSet<>(stringList);
         return uniqueNames.stream().toList();
     }
 
